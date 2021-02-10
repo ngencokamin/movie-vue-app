@@ -2,14 +2,14 @@
   <div class="home">
     <button class="add" v-on:click="showAdd = !showAdd">Add Movie</button>
 
-    <button class="login" v-if="!loggedIn" v-on:click="showLogin = !showLogin">Login</button>
-    <button class="login" v-if="loggedIn" v-on:click="logoff">Sign Out</button>
+    <!-- <button class="login" v-if="!loggedIn" v-on:click="showLogin = !showLogin">Login</button>
+    <button class="login" v-if="loggedIn" v-on:click="logoff">Sign Out</button> -->
 
     <br>
 
-    <button class="login" v-if="showLogin" v-on:click="login">Sign in</button>
+    <!-- <button class="login" v-if="showLogin" v-on:click="login">Sign in</button>
     <input class="login" v-if="showLogin" v-model="password" type="text" placeholder="Password">
-    <input class="login" v-if="showLogin" v-model="email" type="text" placeholder="Email">
+    <input class="login" v-if="showLogin" v-model="email" type="text" placeholder="Email"> -->
 
     <input class="add" v-if="showAdd" v-model="title" type="text" placeholder="Title">
     <input class="add" v-if="showAdd" v-model.number="year" type="number" placeholder="Year">
@@ -37,9 +37,9 @@
   </div>
 </template>
 <style>
-.login {
+/* .login {
   float: right;
-}
+} */
 .add {
   float:left;
 }
@@ -50,11 +50,11 @@ export default {
   data: function() {
     return {
       message: "Welcome to Vue.js!",
-      loggedIn: false,
-      showLogin: false,
-      email: "",
-      password: "",
-      token: "",
+      // loggedIn: false,
+      // showLogin: false,
+      // email: "",
+      // password: "",
+      // token: "",
       movies: [],
       showAdd: false,
       title: "",
@@ -68,27 +68,27 @@ export default {
     this.moviesIndex();
   },
   methods: {
-    login: function() {
-      var params = {
-        email: this.email,
-        password: this.password
-      }
-      axios.post("/api/sessions", params)
-      .then((response) => {
-        this.token = response.data.jwt;
-      })
-      .catch((error) => {
-        console.log(error.response.data.errors)
-      });
-      this.loggedIn = true;
-      this.showLogin = false;
-    },
-    logoff: function() {
-      this.loggedIn = false;
-      this.token = "";
-      this.email = "";
-      this.password = "";
-    },
+    // login: function() {
+    //   var params = {
+    //     email: this.email,
+    //     password: this.password
+    //   }
+    //   axios.post("/api/sessions", params)
+    //   .then((response) => {
+    //     this.token = response.data.jwt;
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response.data.errors)
+    //   });
+    //   this.loggedIn = true;
+    //   this.showLogin = false;
+    // },
+    // logoff: function() {
+    //   this.loggedIn = false;
+    //   this.token = "";
+    //   this.email = "";
+    //   this.password = "";
+    // },
     moviesIndex: function() {
       axios.get("/api/movies")
       .then(response => {
@@ -107,11 +107,7 @@ export default {
         year: this.year,
         plot: this.plot
       }
-      axios.post("/api/movies", params, {
-        headers: {
-          "Authorization" : `Bearer ${this.token}`
-        }
-      })
+      axios.post("/api/movies", params)
       .then((response) => {
         console.log(response.data);
         this.movies.push(response.data);
