@@ -2,12 +2,16 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>
+      <span v-if="!isLoggedIn()">
       |
       <router-link to="/signup">Signup</router-link>
       |
       <router-link to="/login">Login</router-link>
+      </span>
+      <span v-else>
       |
       <router-link to="/logout">Logout</router-link>
+      </span>
       |
       <router-link to="/movies">Movies Index</router-link>
       |
@@ -39,3 +43,13 @@
   color: #42b983;
 }
 </style>
+
+<script>
+export default {
+  methods: {
+    isLoggedIn: function() {
+      return localStorage.getItem("jwt");
+    },
+  },
+};
+</script>

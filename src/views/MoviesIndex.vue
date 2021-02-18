@@ -1,7 +1,13 @@
 <template>
   <div class="home">
     <h1>Movies</h1>
-    <div v-for="movie in movies" :key="movie.id">
+    <input v-model="filter" placeholder="Type to filter..." list="titles" />
+    <button v-on:click="(sortBy = 'title'), (order = !order)">Sort Alphabetically</button>
+    <button v-on:click="(sortBy = 'year'), (order = !order)">Sort By Year</button>
+    <datalist id="titles">
+      <option v-for="movie in movies" v-bind:key="movie.id">{{ movie.title }}</option>
+    </datalist>
+    <div v-for="movie in orderBy(filterBy(movies, filter, 'title'), sortBy, ascOrDesc())" :key="movie.id">
       <h2>{{ movie.title }}</h2>
       <p>{{ movie.director }} | {{ movie.year }} | English: {{ movie.english }}</p>
       <p>{{ movie.plot }}</p>
@@ -20,10 +26,15 @@
 
 <script>
 import axios from "axios";
+import Vue2Filters from "vue2-filters";
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       movies: [],
+      filter: "",
+      sortBy: "",
+      order: false,
     };
   },
   created: function() {
@@ -32,6 +43,15 @@ export default {
       this.movies = response.data;
     });
   },
-  methods: {},
+  methods: {
+    ascOrDesc: function() {
+      if (this.order === true) {
+        return 1;
+      } 
+      else {
+        return -1;
+      }
+    },
+  },
 };
 </script>

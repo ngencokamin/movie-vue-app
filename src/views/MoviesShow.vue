@@ -12,7 +12,6 @@
     </div>
     <router-link to="/movies"><button>Back</button></router-link>
     <router-link :to="`/movies/${this.movie.id}/edit`"><button>Edit Movie</button></router-link>
-    
   </div>
 </template>
 
@@ -32,8 +31,6 @@ export default {
       this.movie = response.data;
     });
   },
-  methods: {
-    
-  },
+  methods: {},
 };
 </script>
