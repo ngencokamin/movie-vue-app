@@ -22,7 +22,7 @@
       <div class="form-group">
         <textarea name="plot" v-model="plot" placeholder="Plot" cols="30" rows="10" maxlength="500"></textarea>
       </div>
-      <small> {{ plotLength - plot.length }} characters remaining</small>
+      <small>{{ plotLength - plot.length }} characters remaining</small>
       <div class="form-group">
         <input type="checkbox" id="checkbox" v-model="english" />
         <label for="checkbox">English?</label>

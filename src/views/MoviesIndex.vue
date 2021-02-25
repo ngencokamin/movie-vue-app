@@ -8,8 +8,12 @@
       <option v-for="movie in movies" v-bind:key="movie.id">{{ movie.title }}</option>
     </datalist>
     <div v-for="movie in orderBy(filterBy(movies, filter, 'title'), sortBy, ascOrDesc())" :key="movie.id">
-      <h2>{{ movie.title }}</h2>
-      <p>{{ movie.director }} | {{ movie.year }} | English: {{ movie.english }}</p>
+      <h1>
+        <strong>{{ movie.title }}</strong>
+      </h1>
+      <h3>
+        <b>{{ movie.director }} | {{ movie.year }} | English: {{ movie.english }}</b>
+      </h3>
       <p>{{ movie.plot }}</p>
       <p>Genres:</p>
       <div v-for="genre in movie.genres" :key="genre.id">
@@ -47,8 +51,7 @@ export default {
     ascOrDesc: function() {
       if (this.order === true) {
         return 1;
-      } 
-      else {
+      } else {
         return -1;
       }
     },

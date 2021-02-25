@@ -1,8 +1,11 @@
 <template>
   <div class="home">
-    <h1>Movies</h1>
-    <h2>{{ movie.title }}</h2>
-    <p>{{ movie.director }} | {{ movie.year }} | English: {{ movie.english }}</p>
+    <h1>
+      <strong>{{ movie.title }}</strong>
+    </h1>
+    <h3>
+      <b>{{ movie.director }} | {{ movie.year }} | English: {{ movie.english }}</b>
+    </h3>
     <p>{{ movie.plot }}</p>
     <p>Genres:</p>
     <div v-for="genre in movie.genres" :key="genre.id">
