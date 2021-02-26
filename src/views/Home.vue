@@ -1,7 +1,18 @@
 <template>
   <div class="home">
-    <h1>Movie App Homepage</h1>
-    <h2>There's no content here</h2>
+    <div class="jumbotron">
+      <h1 class="display-4">Oops!</h1>
+      <p class="lead">
+        Seems there's no data here. Nothing at all.
+      </p>
+      <hr class="my-4" />
+      <p>If you want to see movie data, have you considered checking out our movies index?</p>
+      <router-link to="/movies" custom v-slot="{ navigate }">
+        <span class="btn btn-primary btn-lg" @click="navigate" @keypress.enter="navigate" role="link">
+          Movies Index
+        </span>
+      </router-link>
+    </div>
   </div>
 </template>
 

@@ -20,6 +20,11 @@
         <input type="text" class="form-control" v-model="movie.director" />
       </div>
       <div class="form-group">
+        <label>Poster URL:</label>
+        <input type="text" class="form-control" v-model="movie.poster" />
+      </div>
+      <label>Plot:</label>
+      <div class="form-group">
         <textarea name="plot" v-model="movie.plot" placeholder="Plot" cols="30" rows="10"></textarea>
       </div>
       <div class="form-group">
@@ -27,9 +32,32 @@
         <label for="checkbox">English?</label>
       </div>
       <div class="form-group"></div>
-      <input type="submit" class="btn btn-primary" value="Update" />
+      <input type="submit" class="btn btn-outline-primary mr-1" value="Update" />
+      <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#deleteModal">
+        Delete Movie
+      </button>
     </form>
-    <button v-on:click="destroyMovie()">Delete Movie</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">Are you sure you want to delete "{{ movie.title }}"?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" v-on:click="destroyMovie()" class="btn btn-danger" data-dismiss="modal">
+              Confirm Deletion
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -58,6 +86,7 @@ export default {
         plot: this.movie.plot,
         director: this.movie.director,
         english: this.movie.english,
+        poster: this.movie.poster,
       };
 
       axios
@@ -72,19 +101,17 @@ export default {
         });
     },
     destroyMovie: function() {
-      if (confirm("Are you sure you want to delete this movie?")) {
-        axios
-          .delete(`/api/movies/${this.movie.id}`)
-          .then(response => {
-            console.log(response.data);
-            alert(response.data.message);
-            this.$router.push("/movies");
-          })
-          .catch(error => {
-            this.errors = error.response.data.errors;
-            alert("Error! Couldn't delete post");
-          });
-      }
+      axios
+        .delete(`/api/movies/${this.movie.id}`)
+        .then(response => {
+          console.log(response.data);
+          alert(response.data.message);
+          this.$router.push("/movies");
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
+          alert("Error! Couldn't delete post");
+        });
     },
   },
 };

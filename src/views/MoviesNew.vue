@@ -20,6 +20,10 @@
         <input type="text" class="form-control" v-model="director" />
       </div>
       <div class="form-group">
+        <label>Poster URL:</label>
+        <input type="text" class="form-control" v-model="poster" />
+      </div>
+      <div class="form-group">
         <textarea name="plot" v-model="plot" placeholder="Plot" cols="30" rows="10" maxlength="500"></textarea>
       </div>
       <small>{{ plotLength - plot.length }} characters remaining</small>
@@ -44,6 +48,7 @@ export default {
       year: "",
       plot: "",
       director: "",
+      poster: "",
       english: false,
       errors: [],
       plotLength: 500,
